@@ -1,0 +1,711 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Payments &amp; DeFi Product Demo (Retail + Business)</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	gap: 46px;
+}
+
+.column {
+	min-width: 0;
+	overflow: hidden;
+}
+
+.column > *:first-child {
+	margin-top: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="32860413-d220-80bb-aedb-c9c558f705f5" class="page sans"><header><h1 class="page-title" dir="auto">Payments &amp; DeFi Product Demo (Retail + Business)</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody><tr class="property-row property-row-select"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/arrow-circle-down_gray.svg" style="width:14px;height:14px;display:block"/></span>Sponsor</th><td><span class="selected-value select-value-color-yellow">TRON</span></td></tr><tr class="property-row property-row-number"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/hashtag_gray.svg" style="width:14px;height:14px;display:block"/></span>Prize Amount</th><td>1000</td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/list_gray.svg" style="width:14px;height:14px;display:block"/></span>Theme</th><td><span class="selected-value select-value-color-default">Agentic Payments</span><span class="selected-value select-value-color-blue">DeFi</span><span class="selected-value select-value-color-red">Open-Ended</span></td></tr></tbody></table></header><div class="page-body"><div style="display:contents" dir="auto"><h2 id="32860413-d220-8049-8d23-ea50e710fa4e" class="">About the Sponsor: TRON</h2></div><div style="display:contents" dir="auto"><p id="32860413-d220-80ab-aa01-c1153e766467" class="">Tron is an open-source, decentralised, Layer 1 blockchain offering a fast, developer-friendly way for anyone, anywhere, to build and transact onchain.</p></div><div style="display:contents" dir="auto"><h2 id="32860413-d220-8082-a83a-f0944109aa89" class=""><strong>Brief Description of Bounty</strong></h2></div><div style="display:contents" dir="auto"><p id="32860413-d220-80a4-afc0-dc5cbff5887d" class="">Build a comprehensive, real-world payment or DeFi product demo on TRON that goes beyond simple token transfers and shows a complete user journey, strong UX, and a practical business or consumer use case.</p></div><div style="display:contents" dir="auto"><h2 id="32860413-d220-80c4-a24d-d5b08320536d" class="">Prize Information</h2></div><div style="display:contents" dir="auto"><p id="32860413-d220-8006-a3d3-d8ce04003d77" class="">$1,000</p></div><div style="display:contents" dir="auto"><h2 id="32860413-d220-8014-9ba9-e6fcab7bd81f" class="">Objective</h2></div><div style="display:contents" dir="auto"><p id="32860413-d220-80d9-b1e5-ccf4fc135180" class="">Create an open-ended payments or DeFi  project on TRON that demonstrates a clear “product”, not just contracts. Your demo must show an end-to-end flow that a real user or business would understand and want to use.</p></div><div style="display:contents" dir="auto"><p id="32860413-d220-8004-8f6a-e8dd819028f7" class="">Your project can be in any of the following directions (choose one primary direction and execute it deeply):</p></div><div style="display:contents" dir="auto"><ul id="32860413-d220-80fa-bc76-db3aafab067d" class="bulleted-list"><li style="list-style-type:disc">Merchant acquiring and checkout</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8009-9202-fc7e2ec3640c" class="bulleted-list"><li style="list-style-type:disc">Affordable consumer payments (P2P) solutions</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-804e-bdc4-f3f379f9c8f7" class="bulleted-list"><li style="list-style-type:disc">B2B payments and invoicing</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-807c-8377-d8bc8bcb8271" class="bulleted-list"><li style="list-style-type:disc">Payroll and human capital payments</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8066-9cd6-c9452ff11bad" class="bulleted-list"><li style="list-style-type:disc">Payments service provider tooling (PSP)</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8042-abc5-cb0dfcdfbc17" class="bulleted-list"><li style="list-style-type:disc">On/Off-ramp experience (demo/simulation acceptable)</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8025-bbd7-d678a9375f5a" class="bulleted-list"><li style="list-style-type:disc">RWA products and solutions with a payments angle (retail-oriented)</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-80d9-8803-e99e400dc83d" class="bulleted-list"><li style="list-style-type:disc">Credit solutions that go beyond simple lending/borrowing</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8044-ad5f-f8de10648939" class="bulleted-list"><li style="list-style-type:disc">Liquidity aggregation solutions</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-800c-8900-d6d27e828299" class="bulleted-list"><li style="list-style-type:disc">Yield farming / vaults</li></ul></div><div style="display:contents" dir="auto"><h2 id="32860413-d220-80ed-bea2-f30b9b7f7214" class="">Background Information</h2></div><div style="display:contents" dir="auto"><p id="32860413-d220-8069-ba1e-e2bf2cb993da" class="">Payments adoption depends on more than sending tokens. Real payment products need strong UX, clear settlement logic, good failure handling, receipts/invoices, and business-friendly features like reporting, reconciliation, permissions, and customer support flows. This bounty exists to push teams toward complete, retail-oriented or business-oriented payment experiences on TRON.</p></div><div style="display:contents" dir="auto"><h2 id="32860413-d220-80fb-a89a-d314cc93f99d" class="">Guidelines and Resources</h2></div><div style="display:contents" dir="auto"><p id="32860413-d220-80bb-be43-e9ba6c678f52" class="">Open-ended, but must be product-level.</p></div><div style="display:contents" dir="auto"><p id="32860413-d220-808f-b300-e10124ebfade" class=""><strong>QuickStart Links</strong></p></div><div style="display:contents" dir="auto"><ol type="1" id="32860413-d220-80b7-807a-c050e6f1d38a" class="numbered-list" start="1"><li>Create and set up a TronLink wallet - Please create at least two accounts.(<a href="https://www.tronlink.org/">https://www.tronlink.org/</a>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="32860413-d220-8040-a55a-ff9bc8d85cb8" class="numbered-list" start="2"><li>Get test tokens (TRX and USDT) from the Nile testnet faucet (<a href="https://nileex.io/join/getJoinPage">https://nileex.io/join/getJoinPage</a>). Or receive test tokens from the Telegram bot (<a href="https://developers.tron.network/docs/getting-testnet-tokens-on-tron">https://developers.tron.network/docs/getting-testnet-tokens-on-tron</a>)</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="32860413-d220-80fe-a909-d814a73bf078" class="numbered-list" start="3"><li>Getting started with TRON development (<a href="https://forum.trondao.org/t/getting-started-with-tron-development/30818">https://forum.trondao.org/t/getting-started-with-tron-development/30818</a>)</li></ol></div><div style="display:contents" dir="auto"><p id="32860413-d220-80c4-99fd-e9228373a1ea" class="">Your submission must include a working demo that covers these baseline expectations:</p></div><div style="display:contents" dir="auto"><p id="32860413-d220-80eb-8777-c7c9a9c6b0ad" class=""><strong>A) Required baseline features (all submissions)</strong></p></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8003-a4b4-e2d5dddb70e7" class="bulleted-list"><li style="list-style-type:disc">A clear user journey with at least two roles (i.e.: payer + merchant, employer + employee, business + vendor, PSP + client).</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-801d-a34f-d4d771344327" class="bulleted-list"><li style="list-style-type:disc">A working end-to-end flow that includes:<div style="display:contents" dir="auto"><ol type="1" id="32860413-d220-80e1-a0ff-d6a16dfd9533" class="numbered-list" start="1"><li>setup / onboarding step,</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="32860413-d220-8070-87d8-e29126ccc552" class="numbered-list" start="2"><li>the payment action, and</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="32860413-d220-8096-90ed-e48822f43feb" class="numbered-list" start="3"><li>a verifiable outcome.</li></ol></div></li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8020-b70f-f1057ca700bd" class="bulleted-list"><li style="list-style-type:disc"><strong>On-chain verifiability</strong>: include transaction hashes and show how they map to UI state (paid/unpaid, settled, claimed, etc.).</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-804b-b46d-f8e6d30bd032" class="bulleted-list"><li style="list-style-type:disc"><strong>Clear UX for fees and failure cases</strong>: the app must explain what happens if a transaction fails and what the user should do next.</li></ul></div><div style="display:contents" dir="auto"><p id="32860413-d220-80b0-889a-cdc0d5919c81" class=""><strong>B) What will be discarded</strong></p></div><div style="display:contents" dir="auto"><ul id="32860413-d220-80eb-91c4-ef3242387599" class="bulleted-list"><li style="list-style-type:disc">Simple TRC-20 send/receive demo only (basic wallet transfer UI)</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-800e-9652-e6c55f86fe94" class="bulleted-list"><li style="list-style-type:disc">Basic lending/borrowing dApp with no novel credit/payment concept</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-80f5-95a8-daae45c0169a" class="bulleted-list"><li style="list-style-type:disc">Just a smart contract with no usable demo UX</li></ul></div><div style="display:contents" dir="auto"><p id="32860413-d220-8079-9033-ddc1fd6a224f" class=""><strong>C) Innovation expectations for specific directions</strong></p></div><div style="display:contents" dir="auto"><ul id="32860413-d220-80c7-ace1-c0a58b061dc2" class="bulleted-list"><li style="list-style-type:disc">Credit solutions: Must be meaningfully innovative. Plain deposit/borrow/repay will be rejected.</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-808e-aba9-cea71bf7887a" class="bulleted-list"><li style="list-style-type:disc">RWA with payments angle: Must focus on retail adoption and a full experience. Simple tokenization alone will be rejected.</li></ul></div><div style="display:contents" dir="auto"><p id="32860413-d220-807d-8b6b-feada248c70c" class=""><strong>D) Network + code</strong></p></div><div style="display:contents" dir="auto"><ul id="32860413-d220-802f-87e2-ef6dca0c2a34" class="bulleted-list"><li style="list-style-type:disc">Must run on TRON testnet (Nile preferred).</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-805f-a1d6-d9a813a85f46" class="bulleted-list"><li style="list-style-type:disc">Must be open source with a clear README and reproducible steps.</li></ul></div><div style="display:contents" dir="auto"><p id="32860413-d220-8062-aab2-e6fc51353c76" class=""><strong>Resources</strong></p></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8025-b121-defb93ae57bd" class="bulleted-list"><li style="list-style-type:disc"><a href="https://forum.trondao.org/t/getting-started-with-tron-development/30818">Getting Started With TRON</a></li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8067-adee-c8daee981bd0" class="bulleted-list"><li style="list-style-type:disc"><a href="https://developers.tron.network/">TRON Developer Docs</a></li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-806d-82ca-d8c94902667c" class="bulleted-list"><li style="list-style-type:disc"><a href="https://tronweb.network/docu/docs/intro/">TronWeb</a></li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-80c8-9022-ce02194e6716" class="bulleted-list"><li style="list-style-type:disc"><a href="https://trondao.medium.com/">Medium Articles</a></li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8034-aeb7-ec3e1d28afb2" class="bulleted-list"><li style="list-style-type:disc"><a href="https://x.com/trondao/articles">X Articles</a></li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-807d-a8b3-c99ec4e673b2" class="bulleted-list"><li style="list-style-type:disc"><a href="https://nileex.io/join/getJoinPage">Nile Testnet Faucet</a></li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-803d-9900-ed8ce45f3acc" class="bulleted-list"><li style="list-style-type:disc"><a href="http://t.me/TronOfficialDevelopersGroupEn">TRON Official Developer Group - TG</a></li></ul></div><div style="display:contents" dir="auto"><h2 id="32860413-d220-807a-8193-e2e68edb39d3" class="">Deliverables</h2></div><div style="display:contents" dir="auto"><p id="32860413-d220-8065-ad92-ce78ef1b2b16" class="">The application must have:</p></div><div style="display:contents" dir="auto"><ul id="32860413-d220-80bd-9a5c-f7bddd62935f" class="bulleted-list"><li style="list-style-type:disc">A functional web user-interface (or mobile app).</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-805a-96f4-f6d73952f77a" class="bulleted-list"><li style="list-style-type:disc">Demo video.</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-80af-b4dc-d11951caaaff" class="bulleted-list"><li style="list-style-type:disc">Github Repository.</li></ul></div><div style="display:contents" dir="auto"><h2 id="32860413-d220-80fc-ad0e-c9b80a7ca2c5" class="">Jugement Criteria</h2></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8004-bd23-e28759706812" class="bulleted-list"><li style="list-style-type:disc">Product completeness: feels like a real payments product, clear roles and flow, usable UI.</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8040-8387-d593fd19e13b" class="bulleted-list"><li style="list-style-type:disc">Real-world usefulness: solves a real merchant/consumer/business payments problem.</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8000-83f2-fd61045e5bfd" class="bulleted-list"><li style="list-style-type:disc">Innovation: novel idea or meaningful improvement beyond standard demos.</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-8073-a183-f8d4f441c06e" class="bulleted-list"><li style="list-style-type:disc">Technical correctness: transactions match app logic, verifiable on-chain, solid architecture.</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-809a-a09f-c42c0c5fc120" class="bulleted-list"><li style="list-style-type:disc">UX clarity + edge cases: good fee/failure messaging, handles common pitfalls well.</li></ul></div><div style="display:contents" dir="auto"><ul id="32860413-d220-80fe-bae8-cd7a332988e3" class="bulleted-list"><li style="list-style-type:disc">Polish: clean README, easy setup, good demo quality.</li></ul></div><div style="display:contents" dir="auto"><p id="32860413-d220-8048-9a02-ec84c044e010" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
